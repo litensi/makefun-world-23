@@ -1,10 +1,11 @@
 import { execFileSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const page = new URL('./index.html', import.meta.url);
 const output = fileURLToPath(new URL('./entry.png', import.meta.url));
 const screenshot = '/tmp/entry.png';
-const chromium = process.env.CHROMIUM_PATH ?? '/home/opencode/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome';
+const chromium = process.env.CHROMIUM_PATH ?? (existsSync('/tmp/news23-browser') ? '/tmp/news23-browser' : '/home/opencode/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
 
 execFileSync(chromium, [
   '--headless=new',
